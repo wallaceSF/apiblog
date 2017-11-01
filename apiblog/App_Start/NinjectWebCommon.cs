@@ -63,6 +63,7 @@ namespace apiblog.App_Start
         {
            
             kernel.Bind<IContext>().To<ContextEntityFactory>();
+            kernel.Bind<IPessoa>().To<ContextEntityFactory>();
                 //.WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString)
                 //.WithConstructorArgument("timeout", 10000); ;            
 

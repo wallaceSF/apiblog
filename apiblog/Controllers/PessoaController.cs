@@ -23,9 +23,7 @@ namespace apiblog.Controllers
 
        
         public IEnumerable<Pessoa> Get()
-        {
-          //  HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Origin", "*");
-
+        {          
             PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
             return pessoaServices.GetAll();
         }
@@ -38,10 +36,7 @@ namespace apiblog.Controllers
 
       
         public void Post([FromBody]Pessoa pessoa)
-        {
-           // HttpContext.Current.Response.AppendHeader("Access-Control-Allow-Origin", "*");
-           // HttpContext.Current.Response.AppendHeader("Allow", "GET,POST,OPTIONS");
-
+        {          
             PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
             pessoaServices.Create(pessoa);
         }
