@@ -1,10 +1,5 @@
-﻿using apiblog.Context;
-using apiblog.Entities;
-using apiblog.Models;
-using System;
+﻿using apiblog.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace apiblog.Services
 {
@@ -17,17 +12,11 @@ namespace apiblog.Services
             _pessoa = pessoa;
         }
 
-        public List<string> GetLembrete()
-        {                   
-            //adicionar depois em outro lugar
-            Aniversariante aniversariante = new Aniversariante();
-            List<ILembrete> listLembrete = new List<ILembrete>
-            {
-                aniversariante
-            };
-
-            List<string> lembrete = new List<string>();
-            foreach (ILembrete list in listLembrete)
+        public List<List<string>> GetLembrete()
+        {                              
+            List<List<string>> lembrete = new List<List<string>>(); 
+            
+            foreach (ILembrete list in this.Lembretes())
             {
                 list.SetPessoa(_pessoa);
                 lembrete.Add(list.GetLembrete());
@@ -36,21 +25,15 @@ namespace apiblog.Services
             return lembrete;
         }
 
-        private List<ILembrete> ListAllLembretes()
+        private List<ILembrete> Lembretes()
         {
-
             List<ILembrete> listLembrete = new List<ILembrete>
             {
-                new Aniversariante()
+                new Aniversariante(),
+                new PostingInDraft()
             };
 
-
             return listLembrete;
-
         }
-
-
-    }
-
-   
+    }  
 }

@@ -16,11 +16,37 @@ namespace apiblog.Services
             _Pessoa = Pessoa;
         }
 
-        public string GetLembrete()
+        public List<string> GetLembrete()
         {
-            ///fazer codigo aqui depois
-            //_Pessoa.NascimentoData;
-            return "seu aniversário";
+
+            var DataNascimento = _Pessoa.NascimentoData;
+
+            var DataAtual = DateTime.Now;
+            var DataAtualNascimento = new DateTime(DataAtual.Year, DataNascimento.Month, DataNascimento.Day);
+
+            var diffDate = (DataAtual - DataAtualNascimento).TotalDays;
+
+            string mensagem = null;
+            if(diffDate <= 3)
+            {
+                string dayString = string.Format("{0}", diffDate);                
+                string[] day = dayString.Split(',');
+
+                mensagem = "falta " + day[0] + " para seu aniversário";
+            }
+
+            if(diffDate < 1)
+            {
+                mensagem = "Parabéns pelo seu aniversário!";
+            }
+   
+
+            List<string> lembretes = new List<string>
+            {
+                mensagem
+            };
+
+            return lembretes;
         }
     }
 }

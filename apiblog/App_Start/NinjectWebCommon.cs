@@ -62,8 +62,7 @@ namespace apiblog.App_Start
         private static void RegisterServices(IKernel kernel)
         {
            
-            kernel.Bind<IContext>().To<ContextEntityFactory>();
-            kernel.Bind<IPessoa>().To<ContextEntityFactory>();
+            kernel.Bind<IContext>().To<ContextEntityFactory>();            
                 //.WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString)
                 //.WithConstructorArgument("timeout", 10000); ;            
 
