@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace apiblog.Entities
 {
@@ -14,6 +11,5 @@ namespace apiblog.Entities
         public virtual ICollection<Comentario> Filho { get; set; }
         public virtual Post Post { get; set; }
         public virtual Pessoa Pessoa { get; set; }
-
     }
 }

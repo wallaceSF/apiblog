@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace apiblog.Entities
 {
@@ -13,7 +10,6 @@ namespace apiblog.Entities
         public virtual List<Comentario> Comentarios { get; set; }
         public virtual Pessoa Pessoa { get; set; }
         public virtual PostStatus PostStatus { get; set; }
-
         public virtual List<Categoria> Categorias { get; set; }
 
     }

@@ -222,6 +222,7 @@
     <Compile Include="Config\ComentarioMapping.cs" />
     <Compile Include="Config\EmailMapping.cs" />
     <Compile Include="Config\EnderecoMapping.cs" />
+    <Compile Include="Config\UsuarioMapping.cs" />
     <Compile Include="Config\PostStatusMapping.cs" />
     <Compile Include="Config\PostMapping.cs" />
     <Compile Include="Config\PessoaMapping.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Controllers\LembreteController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\Comentario.cs" />
     <Compile Include="Entities\PostStatus.cs" />
@@ -244,17 +246,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AuthenticateModel.cs" />
+    <Compile Include="Models\Authenticate.cs" />
     <Compile Include="Models\LembreteModel.cs" />
     <Compile Include="Models\RootPessoaObject.cs" />
     <Compile Include="NinjectDependencies\ContextEntityFactory.cs" />
     <Compile Include="NinjectDependencies\IContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\Lembretes\PostingInDraft.cs" />
     <Compile Include="Services\Lembretes\Aniversariante.cs" />
     <Compile Include="Services\CategoriaServices.cs" />
     <Compile Include="Services\Lembretes\ILembrete.cs" />
     <Compile Include="Services\LembreteService.cs" />
+    <Compile Include="Services\UsuarioServices.cs" />
     <Compile Include="Services\PostServices.cs" />
     <Compile Include="Services\PessoaServices.cs" />
   </ItemGroup>

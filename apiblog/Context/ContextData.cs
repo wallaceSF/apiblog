@@ -13,8 +13,11 @@ namespace apiblog.Context
         public DbSet<Endereco> Enderecos { get; set; }
 
         public DbSet<Post> Posts { get; set; }
+        public DbSet<PostStatus> PostStatus { get; set; }
         public DbSet<Comentario> Comentario { get; set; }
-        public DbSet<Categoria> Categorias { get; set; }              
+        public DbSet<Categoria> Categorias { get; set; }
+
+        public DbSet<Usuario> Usuario { get; set; }              
 
         public ContextData() : base("name=Connection")
         {
@@ -34,6 +37,8 @@ namespace apiblog.Context
             modelBuilder.Configurations.Add(new PostStatusMapping());
             modelBuilder.Configurations.Add(new ComentarioMapping());
             modelBuilder.Configurations.Add(new CategoriaMapping());
+
+            modelBuilder.Configurations.Add(new UsuarioMapping());
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
