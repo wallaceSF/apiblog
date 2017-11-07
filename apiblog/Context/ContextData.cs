@@ -31,6 +31,7 @@ namespace apiblog.Context
             modelBuilder.Configurations.Add(new EnderecoMapping());            
 
             modelBuilder.Configurations.Add(new PostMapping());
+            modelBuilder.Configurations.Add(new PostStatusMapping());
             modelBuilder.Configurations.Add(new ComentarioMapping());
             modelBuilder.Configurations.Add(new CategoriaMapping());
 

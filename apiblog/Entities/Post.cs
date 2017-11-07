@@ -12,6 +12,7 @@ namespace apiblog.Entities
         public string Conteudo { get; set; }
         public virtual List<Comentario> Comentarios { get; set; }
         public virtual Pessoa Pessoa { get; set; }
+        public virtual PostStatus PostStatus { get; set; }
 
         public virtual List<Categoria> Categorias { get; set; }
 

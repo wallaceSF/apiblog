@@ -1,15 +1,9 @@
 ﻿using apiblog.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace apiblog.Config
 {
     public class PostMapping : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Post>
     {
-
         public PostMapping()
         {
             ToTable("post", "dbo");
@@ -18,6 +12,7 @@ namespace apiblog.Config
             Property(p => p.Titulo).HasColumnName("titulo");
             Property(p => p.Conteudo).HasColumnName("conteudo");
             HasMany(p => p.Comentarios);
+            HasRequired(p => p.PostStatus).WithMany().Map(p => p.MapKey("idpost_status"));            
 
             HasMany(u => u.Categorias).WithMany().Map(m =>{
                     m.MapLeftKey("idpost");  
@@ -27,6 +22,5 @@ namespace apiblog.Config
 
             HasRequired(p => p.Pessoa).WithMany().Map(p => p.MapKey("idpessoa"));
         }
-
     }
 }
