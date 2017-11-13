@@ -20,21 +20,13 @@ namespace apiblog.Controllers
         {
             _context = context;
         }
-
-       
-        public IEnumerable<Pessoa> Get()
-        {          
-            PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
-            return pessoaServices.GetAll();
-        }
-        
+              
         public Pessoa Get(int id)
         {
             PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
             return pessoaServices.Get(id);
         }
-
-      
+         
         public void Post([FromBody]Pessoa pessoa)
         {          
             PessoaServices pessoaServices = new PessoaServices(_context.GetContext());

@@ -1,6 +1,5 @@
 ﻿using apiblog.Context;
 using apiblog.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,13 +24,10 @@ namespace apiblog.Services
             return _context.Usuario.Find(id);
         }
 
-        public Usuario GetByUserName(string UserName)
+        public Usuario Get(string UserName)
         {
             return _context.Usuario.Where(u => u.Login == UserName).FirstOrDefault();
         }
-
-       
-
     }
 }
 

@@ -18,7 +18,7 @@ namespace apiblog.Services
         {
             var UsuarioServices = new UsuarioServices(new ContextData());
 
-            Usuario Usuario = UsuarioServices.GetByUserName(_Authenticate.Username);
+            Usuario Usuario = UsuarioServices.Get(_Authenticate.Username);
 
             if (Usuario == null)
             {

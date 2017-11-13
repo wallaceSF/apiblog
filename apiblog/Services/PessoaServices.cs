@@ -18,12 +18,12 @@ namespace apiblog.Services
         public IEnumerable<Pessoa> GetAll()
         {           
             return _context.Pessoas.ToList();
-        }   
+        }        
 
         public Pessoa Get(int id)
         {            
             return _context.Pessoas.Find(id);
-        }
+        }        
 
         public void Create(Pessoa pessoaObjectParams)
         {

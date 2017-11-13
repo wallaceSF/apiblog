@@ -253,6 +253,7 @@
     <Compile Include="NinjectDependencies\IContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\JWTServices.cs" />
     <Compile Include="Services\Lembretes\PostingInDraft.cs" />
     <Compile Include="Services\Lembretes\Aniversariante.cs" />
     <Compile Include="Services\CategoriaServices.cs" />

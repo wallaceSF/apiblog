@@ -1,4 +1,6 @@
-﻿using apiblog.Models;
+﻿using apiblog.Context;
+using apiblog.Entities;
+using apiblog.Models;
 using apiblog.Services;
 using JWT;
 using JWT.Algorithms;
@@ -6,6 +8,9 @@ using JWT.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace apiblog.Controllers
@@ -22,41 +27,31 @@ namespace apiblog.Controllers
                 return BadRequest(ModelState);
             }
 
-            var AuthenticationService = new AuthenticationService(AuthenticateModel);
+            AuthenticationService AuthenticationService = new AuthenticationService(AuthenticateModel);
 
             if (!AuthenticationService.Authenticate())
-            {
-               
-                return Ok(new
-                    {
-                        success = false,
-                        message = "senha errada"
-                    }
-                );
+            {                
+                return Unauthorized(new AuthenticationHeaderValue("Basic", "login ou senha invalidas"));             
             }
-                    
-            var DataAtual = DateTime.Now;            
-            var DataModificada = DataAtual.AddHours(3);
 
-            var secondsSinceEpoch = Math.Round((DataModificada - DataAtual).TotalSeconds);
+            DateTime DataAtual = DateTime.Now;
+            DateTime DataModificada = DataAtual.AddHours(3);
 
-            var payload = new Dictionary<string, object>
-                {
-                    { "claim1", 0 },
-                    { "claim2", "claim2-value"},
-                    { "exp", secondsSinceEpoch }
+            UsuarioServices UsuarioServices = new UsuarioServices(new ContextData());
+
+            Usuario Usuario = UsuarioServices.Get(AuthenticateModel.Username);
+
+            Dictionary<string, object> PayLoad = new Dictionary<string, object>
+                {                    
+                    { "id", Usuario.Pessoa.IdPessoa},
+                    { "name", Usuario.Pessoa.Nome },                    
                 };
 
-            var secret = ConfigurationManager.AppSettings.Get("secret");            
+            JWTServices JWTServices = new JWTServices(DataAtual, DataModificada, PayLoad);
 
-            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
-            IJsonSerializer serializer = new JsonNetSerializer();
-            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
+            return Ok(new { success = true, token = JWTServices.GenerateToken() });
 
-            var token = encoder.Encode(payload, secret);            
-
-            return Ok(new { success = true, token = token });
         }
+  
     }
 }

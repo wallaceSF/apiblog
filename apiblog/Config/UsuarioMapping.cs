@@ -11,7 +11,18 @@ namespace apiblog.Config
             ToTable("usuario", "dbo");
             HasKey(p => p.IdUsuario);
             Property(p => p.IdUsuario).HasColumnName("idusuario");
+          //  Property(p => p.Pessoa.IdPessoa).HasColumnName("idpessoa");
+
+           // HasRequired(p => p.Pessoa).WithMany().Map(p => p.MapKey("idpessoa"));
+
             HasRequired(p => p.Pessoa).WithMany().Map(p => p.MapKey("idpessoa"));
+            //HasRequired(p => p.Pessoa).WithMany().Map(p => p.MapKey("idpessoa"));
+
+           //   HasOptional(p => p.Pessoa).WithRequired().Map(p => p.MapKey("idpessoa"));
+
+
+
+           //  HasRequired(a => a.Pessoa).WithRequiredPrincipal(b => b.Usuario); 
             Property(p => p.Login).HasColumnName("login").HasColumnAnnotation(
                  IndexAnnotation.AnnotationName,
                     new IndexAnnotation(

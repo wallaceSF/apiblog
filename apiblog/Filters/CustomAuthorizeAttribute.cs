@@ -46,9 +46,7 @@ namespace apiblog.Filters
 
         private void AuthorizeRequest(string token)
         {
-
-            string ddd = "";
-
+            
             var secret = ConfigurationManager.AppSettings.Get("secret");            
 
             try
@@ -59,19 +57,14 @@ namespace apiblog.Filters
                 IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
                 IJwtDecoder decoder          = new JwtDecoder(serializer, validator, urlEncoder);
 
-               ddd = decoder.Decode(token, secret, verify: false);
-
-                var a = ddd;
-                var o = a;
+               decoder.Decode(token, secret, verify: true);                
 
             }
-            catch (TokenExpiredException e) {
-       //         var x = ddd;
-         //       var zzzz = x;
+            catch (TokenExpiredException e) { 
                 throw new Exception(e.Message.ToString());               
             }
             catch (SignatureVerificationException r) {
-                throw new Exception(r.Message.ToString());                
+                throw new Exception(r.Message.ToString());
             }
 
         }

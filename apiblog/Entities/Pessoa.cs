@@ -9,6 +9,6 @@ namespace apiblog.Entities
         public string Nome { get; set; }
         public DateTime NascimentoData { get; set; }
         public virtual List<Email> Emails { get; set; }
-        public virtual List<Endereco> Enderecos { get; set; }
+        public virtual List<Endereco> Enderecos { get; set; }        
     }
 }
