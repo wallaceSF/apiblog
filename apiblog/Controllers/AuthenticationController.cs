@@ -1,23 +1,19 @@
-﻿using apiblog.Context;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
+using System.Web.Http;
+using apiblog.Context;
 using apiblog.Entities;
 using apiblog.Models;
 using apiblog.Services;
-using JWT;
-using JWT.Algorithms;
-using JWT.Serializers;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web.Http;
 
 namespace apiblog.Controllers
 {
     [RoutePrefix("api/Authentication")]
     public class AuthenticationController : ApiController
     {
+        private const int DURACAO_TOKEN_HORAS = 3;
+
         [AllowAnonymous]      
         public IHttpActionResult Authenticate(Authenticate AuthenticateModel)
         {
@@ -34,8 +30,7 @@ namespace apiblog.Controllers
                 return Unauthorized(new AuthenticationHeaderValue("Basic", "login ou senha invalidas"));             
             }
 
-            DateTime DataAtual = DateTime.Now;
-            DateTime DataModificada = DataAtual.AddHours(3);
+            DateTime DataExpiracao = (DateTime.UtcNow).AddHours(DURACAO_TOKEN_HORAS);            
 
             UsuarioServices UsuarioServices = new UsuarioServices(new ContextData());
 
@@ -47,7 +42,7 @@ namespace apiblog.Controllers
                     { "name", Usuario.Pessoa.Nome },                    
                 };
 
-            JWTServices JWTServices = new JWTServices(DataAtual, DataModificada, PayLoad);
+            JWTServices JWTServices = new JWTServices(DataExpiracao, PayLoad);
 
             return Ok(new { success = true, token = JWTServices.GenerateToken() });
 
