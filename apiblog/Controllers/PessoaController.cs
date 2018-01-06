@@ -1,60 +1,45 @@
 ﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 using apiblog.Entities;
-using apiblog.NinjectDependencies;
+using apiblog.Interfaces;
 using apiblog.Services;
-using Newtonsoft.Json;
-using System.Web;
 
 namespace apiblog.Controllers
 {
     public class PessoaController : ApiController
-    {
+    {        
+        private IGenericService<PessoaServices> _pessoaService;
 
-        private IContext _context;
-
-        public PessoaController(IContext context)
-        {
-            _context = context;
+        public PessoaController(IContext context, IGenericService<PessoaServices> pessoaService)
+        {            
+            _pessoaService = pessoaService;
         }
 
         public IEnumerable<Pessoa> Get()
-        {
-            PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
-            return pessoaServices.GetAll();
+        {         
+            return _pessoaService.GetService().GetAll();                 
         }
 
         public Pessoa Get(int id)
         {
-            PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
-            return pessoaServices.Get(id);
+            return _pessoaService.GetService().Get(id);
         }
          
         public void Post([FromBody]Pessoa pessoa)
-        {          
-            PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
-            pessoaServices.Create(pessoa);
+        {                      
+            _pessoaService.GetService().Create(pessoa);
         }
 
-        public HttpResponseMessage Put(int id, [FromBody]Pessoa pessoa)
-        {
-            PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
-            pessoaServices.Update(id, pessoa);
-
-            return Request.CreateResponse(HttpStatusCode.OK);
+        public void Put(int id, [FromBody]Pessoa pessoa)
+        {            
+            _pessoaService.GetService().Update(id, pessoa);
         }
         
-        public HttpResponseMessage Delete(int id)
-        {
-            PessoaServices pessoaServices = new PessoaServices(_context.GetContext());
-            pessoaServices.Delete(id);
-
-            return Request.CreateResponse(HttpStatusCode.OK);
+        public void Delete(int id)
+        {                    
+            _pessoaService.GetService().Delete(id);
         }
         
     }
 }
-

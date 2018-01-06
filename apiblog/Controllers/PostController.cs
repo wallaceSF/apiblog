@@ -4,10 +4,8 @@ using System.Net.Http;
 using System.Web.Http;
 
 using apiblog.Entities;
-using apiblog.NinjectDependencies;
+using apiblog.Interfaces;
 using apiblog.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace apiblog.Controllers
 {

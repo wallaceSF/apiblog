@@ -3,13 +3,14 @@
 
 namespace apiblog.App_Start
 {
+    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+    using Ninject.Web.Common;
+    using Ninject;
     using System;
     using System.Web;
-    using apiblog.NinjectDependencies;
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
-    using Ninject;
-    using Ninject.Web.Common;
+    using apiblog.Factories;
+    using apiblog.Interfaces;    
 
     public static class NinjectWebCommon 
     {
@@ -60,12 +61,12 @@ namespace apiblog.App_Start
         /// </summary>
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
-        {
-           
-            kernel.Bind<IContext>().To<ContextEntityFactory>();            
+        {           
+            kernel.Bind<IContext>().To<ContextEntityFactory>();
+            //kernel.Bind<IPessoaService<>().To<PessoaFactory<>>();
+            kernel.Bind(typeof(IGenericService<>)).To(typeof(GenericServiceFactory<>));
                 //.WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString)
                 //.WithConstructorArgument("timeout", 10000); ;            
-
         }
     }
 }

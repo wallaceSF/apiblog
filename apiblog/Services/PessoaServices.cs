@@ -3,6 +3,8 @@ using apiblog.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
+using System.Net;
 
 namespace apiblog.Services
 {
@@ -22,7 +24,17 @@ namespace apiblog.Services
 
         public Pessoa Get(int id)
         {            
-            return _context.Pessoas.Find(id);
+            var Pessoa = _context.Pessoas.Find(id);
+
+            if(Pessoa == null)
+            {
+                var NullReferenceException = new NullReferenceException("Não foi encontrado a pessoa");
+                NullReferenceException.Data.Add("statusCode", HttpStatusCode.BadRequest);
+
+                throw NullReferenceException;
+            }
+
+            return Pessoa;
         }        
 
         public void Create(Pessoa pessoaObjectParams)
@@ -45,7 +57,10 @@ namespace apiblog.Services
 
             if (pessoaObject == null)
             {
-                throw new NullReferenceException("Não foi encontrado a pessoa");
+                var NullReferenceException = new NullReferenceException("Não foi encontrado a pessoa");
+                NullReferenceException.Data.Add("statusCode", HttpStatusCode.BadRequest);
+
+                throw NullReferenceException;
             }
 
             pessoaObject.Nome = pessoaObjectParams.Nome;
@@ -62,7 +77,10 @@ namespace apiblog.Services
 
             if (pessoaObject == null)
             {
-                throw new NullReferenceException("Não foi encontrado a pessoa");
+                var NullReferenceException = new NullReferenceException("Não foi encontrado a pessoa");
+                NullReferenceException.Data.Add("statusCode", HttpStatusCode.BadRequest);
+
+                throw NullReferenceException;
             }
 
             _context.Pessoas.Remove(pessoaObject);

@@ -1,12 +1,12 @@
-﻿using apiblog.NinjectDependencies;
+﻿using System.Web.Http;
+
+using apiblog.Interfaces;
 using apiblog.Services;
-using System.Web.Http;
 
 namespace apiblog.Controllers
 {
     public class LembreteController : ApiController
-    {
-   
+    {   
         private IContext _context;
 
         public LembreteController(IContext context)
