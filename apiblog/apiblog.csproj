@@ -247,6 +247,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Authenticate.cs" />
     <Compile Include="Models\LembreteModel.cs" />
@@ -263,7 +265,9 @@
     <Compile Include="Services\CategoriaServices.cs" />
     <Compile Include="Services\Lembretes\ILembrete.cs" />
     <Compile Include="Services\LembreteService.cs" />
-    <Compile Include="Services\Teste.cs" />
+    <Compile Include="Repositories\PessoaRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="UoW\UnitOfWork.cs" />
     <Compile Include="Services\UsuarioServices.cs" />
     <Compile Include="Services\PostServices.cs" />
     <Compile Include="Services\PessoaServices.cs" />

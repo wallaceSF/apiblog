@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Web.Http;
+
 using apiblog.Context;
 using apiblog.Entities;
 using apiblog.Models;
 using apiblog.Services;
+
 
 namespace apiblog.Controllers
 {
@@ -17,7 +19,6 @@ namespace apiblog.Controllers
         [AllowAnonymous]      
         public IHttpActionResult Authenticate(Authenticate AuthenticateModel)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -27,7 +28,7 @@ namespace apiblog.Controllers
 
             if (!AuthenticationService.Authenticate())
             {                
-                return Unauthorized(new AuthenticationHeaderValue("Basic", "login ou senha invalidas"));             
+                return Unauthorized(new AuthenticationHeaderValue("Basic", "login ou senha invalidas"));                
             }
 
             DateTime DataExpiracao = (DateTime.UtcNow).AddHours(DURACAO_TOKEN_HORAS);            
@@ -45,7 +46,6 @@ namespace apiblog.Controllers
             JWTServices JWTServices = new JWTServices(DataExpiracao, PayLoad);
 
             return Ok(new { success = true, token = JWTServices.GenerateToken() });
-
         }
   
     }

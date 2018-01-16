@@ -4,20 +4,21 @@ using System.Web.Http;
 using apiblog.Entities;
 using apiblog.Interfaces;
 using apiblog.Services;
+using apiblog.UoW;
 
 namespace apiblog.Controllers
 {
     public class PessoaController : ApiController
     {        
-        private IGenericService<PessoaServices> _pessoaService;
+        private IGenericService<PessoaServices> _pessoaService;        
 
-        public PessoaController(IContext context, IGenericService<PessoaServices> pessoaService)
+        public PessoaController(IGenericService<PessoaServices> pessoaService)
         {            
-            _pessoaService = pessoaService;
+            _pessoaService = pessoaService;            
         }
 
         public IEnumerable<Pessoa> Get()
-        {         
+        {            
             return _pessoaService.GetService().GetAll();                 
         }
 

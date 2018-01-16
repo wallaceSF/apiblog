@@ -1,7 +1,6 @@
 ﻿using apiblog.Context;
 using apiblog.Entities;
 using apiblog.Models;
-using System;
 
 namespace apiblog.Services
 {
@@ -22,7 +21,7 @@ namespace apiblog.Services
 
             if (Usuario == null)
             {
-                throw new NullReferenceException("Não foi encontrado o usuário");
+                return false;
             }
 
             if(CheckPassword(Usuario, _Authenticate.Password))
@@ -36,9 +35,9 @@ namespace apiblog.Services
         private bool CheckPassword(Usuario Usuario, string Password)
         {
            if(Usuario.Senha != Password)
-            {
+           {
                 return false;
-            }
+           }
 
             return true;
         }

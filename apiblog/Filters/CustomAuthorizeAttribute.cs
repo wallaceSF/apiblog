@@ -12,8 +12,7 @@ namespace apiblog.Filters
     {
 
         public override void OnAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
-        {
-        
+        {        
             if (SkipAuthorization(actionContext)) {
                 return;
             }
@@ -24,16 +23,13 @@ namespace apiblog.Filters
                 throw new Exception("Não foi passado Header Authorization");
             }
 
-            var token = Authorization.Parameter;
-
-            var teste = token;
+            var token = Authorization.Parameter;            
 
             if (token == null) {
                 throw new Exception("erro token inválido");
             }
 
             AuthorizeRequest(token);
-
         }
 
         private static bool SkipAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
@@ -45,8 +41,7 @@ namespace apiblog.Filters
         }
 
         private void AuthorizeRequest(string token)
-        {
-            
+        {            
             var secret = ConfigurationManager.AppSettings.Get("secret");            
 
             try
@@ -66,7 +61,6 @@ namespace apiblog.Filters
             catch (SignatureVerificationException r) {
                 throw new Exception(r.Message.ToString());
             }
-
         }
 
     }

@@ -6,15 +6,16 @@ using System.Web;
 using apiblog.Context;
 using apiblog.Interfaces;
 using apiblog.Services;
+using apiblog.UoW;
 
 namespace apiblog.Factories
 {
-    public class GenericServiceFactory<T> : IGenericService<T>
-        where T : class
+    public class GenericServiceFactory<T> : IGenericService<T> where T : class
     {
         public T GetService()
         {
-            return (T)Activator.CreateInstance(typeof(T), new ContextData());           
+            var UnitOfWork = new UnitOfWork(new ContextData());
+            return (T)Activator.CreateInstance(typeof(T), UnitOfWork);           
         }
     }
 }

@@ -1,73 +1,69 @@
-﻿using JWT;
-using JWT.Serializers;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics.Contracts;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Filters;
 
 namespace apiblog.Filters
 {
-    public class TrateException
+    public class TrateException : ExceptionFilterAttribute
     {
-
-        public void OnAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
+        public override void OnException(HttpActionExecutedContext context)
         {
-        
-            if (SkipAuthorization(actionContext)) {
-                return;
-            }
-      
-            var Authorization = actionContext.Request.Headers.Authorization;
-        
-            if(Authorization == null) {
-                throw new Exception("Não foi passado Header Authorization");
-            }
+            var StatusCode = context.Exception.Data["statusCode"];
 
-            var token = Authorization.Parameter;
-
-            var teste = token;
-
-            if (token == null) {
-                throw new Exception("erro token inválido");
-            }
-
-            AuthorizeRequest(token);
-
-        }
-
-        private static bool SkipAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
-        {
-            Contract.Assert(actionContext != null);
-
-            return actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any()
-                       || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
-        }
-
-        private void AuthorizeRequest(string token)
-        {
-            
-            var secret = ConfigurationManager.AppSettings.Get("secret");            
-
-            try
+            var httpStatusCode = HttpStatusCode.InternalServerError;
+            if (!(StatusCode == null))
             {
-                IJsonSerializer serializer   = new JsonNetSerializer();
-                IDateTimeProvider provider   = new UtcDateTimeProvider();
-                IJwtValidator validator      = new JwtValidator(serializer, provider);
-                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-                IJwtDecoder decoder          = new JwtDecoder(serializer, validator, urlEncoder);
-
-               decoder.Decode(token, secret, verify: true);                
-
-            }
-            catch (TokenExpiredException e) { 
-                throw new Exception(e.Message.ToString());               
-            }
-            catch (SignatureVerificationException r) {
-                throw new Exception(r.Message.ToString());
+                httpStatusCode = (HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), StatusCode.ToString(), true);
             }
 
+          //  context.Exception.InnerException.StackTrace.
+
+
+            context.Response = context.Request.CreateErrorResponse(httpStatusCode,
+                                                                   "Bad Request",
+                                                                   context.Exception);
+
+            var httpError = (HttpError)((ObjectContent<HttpError>)context.Response.Content).Value;
+
+            //"\r\n".ToDictionary("a", "x");
+
+            var xxx = "1:2,2:3".Split(',')
+                           .Select(x => x.Split(':'))
+                           .ToDictionary(x => int.Parse(x[0]),
+                                         x => int.Parse(x[1]));
+
+
+            var xxxz = "1:2,2:3".Split(',')
+                          
+                          .ToDictionary(x => x[0],
+                                        x => x);
+
+
+            var www = xxxz;
+
+            // var c = context.Exception.StackTrace.Split('\n').Select(x => x).ToArray();
+            var c = context.Exception.StackTrace;
+            var cfv = context.Exception;
+
+            var trace = new StackTrace(cfv, true);
+            var frame = trace.GetFrames().First();
+            var lineNumber = trace.GetFrames().First().GetFileLineNumber();
+            var fileName = trace.GetFrames().First().GetFileName();
+
+            var d = c;
+
+
+
+#if !DEBUG
+            httpError.Remove("StackTrace");
+#endif
         }
-
     }
 }

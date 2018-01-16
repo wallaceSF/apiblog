@@ -27,6 +27,7 @@ namespace apiblog
             );
 
             config.Filters.Add(new CustomAuthorizeAttribute());
+            config.Filters.Add(new TrateException());
         }
     }
 }
