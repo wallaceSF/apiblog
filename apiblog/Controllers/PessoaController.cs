@@ -2,9 +2,8 @@
 using System.Web.Http;
 
 using apiblog.Entities;
-using apiblog.Interfaces;
 using apiblog.Services;
-using apiblog.UoW;
+using apiblog.Interfaces;
 
 namespace apiblog.Controllers
 {
@@ -22,8 +21,8 @@ namespace apiblog.Controllers
             return _pessoaService.GetService().GetAll();                 
         }
 
-        public Pessoa Get(int id)
-        {
+        public dynamic Get(int id)
+        { 
             return _pessoaService.GetService().Get(id);
         }
          

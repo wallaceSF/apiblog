@@ -1,10 +1,10 @@
-﻿using JWT;
-using JWT.Serializers;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Http;
+
+using apiblog.Services;
 
 namespace apiblog.Filters
 {
@@ -40,27 +40,12 @@ namespace apiblog.Filters
                        || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
         }
 
-        private void AuthorizeRequest(string token)
+        private void AuthorizeRequest(string Token)
         {            
-            var secret = ConfigurationManager.AppSettings.Get("secret");            
+            var Secret = ConfigurationManager.AppSettings.Get("secret");
 
-            try
-            {
-                IJsonSerializer serializer   = new JsonNetSerializer();
-                IDateTimeProvider provider   = new UtcDateTimeProvider();
-                IJwtValidator validator      = new JwtValidator(serializer, provider);
-                IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
-                IJwtDecoder decoder          = new JwtDecoder(serializer, validator, urlEncoder);
-
-               decoder.Decode(token, secret, verify: true);                
-
-            }
-            catch (TokenExpiredException e) { 
-                throw new Exception(e.Message.ToString());               
-            }
-            catch (SignatureVerificationException r) {
-                throw new Exception(r.Message.ToString());
-            }
+            var Jwt = new JwtServices();
+            Jwt.validateToken(Secret, Token);        
         }
 
     }

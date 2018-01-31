@@ -2,6 +2,7 @@
 
 using apiblog.Interfaces;
 using apiblog.Services;
+using System.Collections.Generic;
 
 namespace apiblog.Controllers
 {
@@ -14,7 +15,7 @@ namespace apiblog.Controllers
             _context = context;
         }
 
-        public dynamic Get(int idPessoa)
+        public List<List<string>> Get(int idPessoa)
         {
             var pessoa = _context.GetContext().Pessoas.Find(idPessoa);  
             

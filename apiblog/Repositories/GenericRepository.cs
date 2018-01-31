@@ -27,6 +27,7 @@ namespace apiblog.Repositories
             {
                 return _DbSet.Where(predicate);
             }
+
             return _DbSet.ToList();
         }
 

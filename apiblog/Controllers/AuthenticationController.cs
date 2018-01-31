@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Security.Claims;
 
 using apiblog.Context;
 using apiblog.Entities;
 using apiblog.Models;
 using apiblog.Services;
-
+using System.Configuration;
 
 namespace apiblog.Controllers
 {
     [RoutePrefix("api/Authentication")]
     public class AuthenticationController : ApiController
     {
-        private const int DURACAO_TOKEN_HORAS = 3;
+        private const int DURACAO_TOKEN_HORAS = 1;
 
         [AllowAnonymous]      
         public IHttpActionResult Authenticate(Authenticate AuthenticateModel)
@@ -29,23 +30,32 @@ namespace apiblog.Controllers
             if (!AuthenticationService.Authenticate())
             {                
                 return Unauthorized(new AuthenticationHeaderValue("Basic", "login ou senha invalidas"));                
-            }
-
-            DateTime DataExpiracao = (DateTime.UtcNow).AddHours(DURACAO_TOKEN_HORAS);            
+            }            
 
             UsuarioServices UsuarioServices = new UsuarioServices(new ContextData());
 
             Usuario Usuario = UsuarioServices.Get(AuthenticateModel.Username);
+               
+            var ListClaim = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, Usuario.Pessoa.Nome),
+                new Claim(ClaimTypes.NameIdentifier, (Usuario.Pessoa.Emails.Count != 0 ? Usuario.Pessoa.Emails[0].Endereco : "emaildefault@teste.com")),
+                new Claim(ClaimTypes.Role, "Administrator"),
+            };
 
-            Dictionary<string, object> PayLoad = new Dictionary<string, object>
-                {                    
-                    { "id", Usuario.Pessoa.IdPessoa},
-                    { "name", Usuario.Pessoa.Nome },                    
-                };
-
-            JWTServices JWTServices = new JWTServices(DataExpiracao, PayLoad);
-
-            return Ok(new { success = true, token = JWTServices.GenerateToken() });
+            var SecurityTokenJWT = new SecurityTokenJWT
+            {
+                Subject = ListClaim,
+                NotBefore = DateTime.Now,
+                SigningKey = ConfigurationManager.AppSettings.Get("secret"),
+                Issuer = "self",
+                IssuedAt = DateTime.Now,
+                Expires = DateTime.Now.AddHours(DURACAO_TOKEN_HORAS),
+            };
+       
+            var Jwt = new JwtServices(); 
+            
+            return Ok(new { success = true, token = Jwt.generateToken(SecurityTokenJWT) });
         }
   
     }

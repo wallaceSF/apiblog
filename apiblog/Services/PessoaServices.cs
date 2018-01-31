@@ -28,7 +28,7 @@ namespace apiblog.Services
             if(Pessoa == null)
             {
                 var NullReferenceException = new NullReferenceException("Não foi encontrado a pessoa");
-              //  NullReferenceException.Data.Add("statusCode", HttpStatusCode.BadRequest);
+                NullReferenceException.Data.Add("statusCode", HttpStatusCode.BadRequest);
 
                 throw NullReferenceException;
             }

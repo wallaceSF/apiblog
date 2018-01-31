@@ -11,7 +11,6 @@ namespace apiblog.Controllers
 {
     public class CategoriaController : ApiController
     {
-
         private IContext _context;
 
         public CategoriaController(IContext context)
