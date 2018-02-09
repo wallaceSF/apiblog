@@ -6,6 +6,8 @@ using System.Web.Http;
 using apiblog.Entities;
 using apiblog.Interfaces;
 using apiblog.Services;
+using apiblog.Filters;
+using apiblog.Models;
 
 namespace apiblog.Controllers
 {
@@ -30,6 +32,7 @@ namespace apiblog.Controllers
             return categoriaServices.Get(id);
         }
 
+        [CustomAuthorize(RolesUser.Administrador, RolesUser.Editor)]
         public HttpResponseMessage Post([FromBody]Categoria categoria)
         {
             CategoriaServices categoriaServices = new CategoriaServices(_context.GetContext());

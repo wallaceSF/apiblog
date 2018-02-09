@@ -4,6 +4,7 @@ using System.Web.Http;
 using apiblog.Entities;
 using apiblog.Services;
 using apiblog.Interfaces;
+using apiblog.Filters;
 
 namespace apiblog.Controllers
 {
@@ -15,7 +16,7 @@ namespace apiblog.Controllers
         {            
             _pessoaService = pessoaService;            
         }
-
+              
         public IEnumerable<Pessoa> Get()
         {            
             return _pessoaService.GetService().GetAll();                 

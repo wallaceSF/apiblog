@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 
 using apiblog.Filters;
+using apiblog.Controllers;
 
 namespace apiblog
 {
@@ -24,10 +25,10 @@ namespace apiblog
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
-
+            );            
+          
             config.Filters.Add(new CustomAuthorizeAttribute());
-            config.Filters.Add(new TrateException());
+            config.Filters.Add(new TrateException());         
         }
     }
 }

@@ -244,6 +244,7 @@
     <Compile Include="Controllers\LembreteController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\RoleAttribute.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\Comentario.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Authenticate.cs" />
+    <Compile Include="Models\RolesUser.cs" />
     <Compile Include="Models\SecurityTokenJWT.cs" />
     <Compile Include="Models\LembreteModel.cs" />
     <Compile Include="Models\RootPessoaObject.cs" />

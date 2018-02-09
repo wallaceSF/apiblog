@@ -36,6 +36,12 @@ namespace apiblog.Services
             return signedAndEncodedToken;
         }
 
+        public JwtSecurityToken ReadToken(String Token)
+        {
+            var myTokenHandler = new JwtSecurityTokenHandler();
+            return myTokenHandler.ReadToken(Token) as JwtSecurityToken;
+        }
+
         public IEnumerable<ClaimsIdentity> validateToken(string Secret, string Token)
         {
             var validationParameters = new TokenValidationParameters()
