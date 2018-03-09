@@ -2,44 +2,42 @@
 using System.Web.Http;
 
 using apiblog.Entities;
-using apiblog.Services;
 using apiblog.Interfaces;
-using apiblog.Filters;
 
 namespace apiblog.Controllers
 {
     public class PessoaController : ApiController
-    {        
-        private IGenericService<PessoaServices> _pessoaService;        
+    {                
+        private IPessoaService _pessoaService;        
 
-        public PessoaController(IGenericService<PessoaServices> pessoaService)
+        public PessoaController(IPessoaService pessoaService)
         {            
             _pessoaService = pessoaService;            
         }
               
         public IEnumerable<Pessoa> Get()
-        {            
-            return _pessoaService.GetService().GetAll();                 
+        {                    
+            return _pessoaService.getPessoaService().GetAll();                 
         }
 
         public dynamic Get(int id)
         { 
-            return _pessoaService.GetService().Get(id);
+            return _pessoaService.getPessoaService().Get(id);
         }
          
         public void Post([FromBody]Pessoa pessoa)
-        {                      
-            _pessoaService.GetService().Create(pessoa);
+        {          
+            _pessoaService.getPessoaService().Create(pessoa);
         }
 
         public void Put(int id, [FromBody]Pessoa pessoa)
         {            
-            _pessoaService.GetService().Update(id, pessoa);
+            _pessoaService.getPessoaService().Update(id, pessoa);
         }
         
         public void Delete(int id)
         {                    
-            _pessoaService.GetService().Delete(id);
+            _pessoaService.getPessoaService().Delete(id);
         }
         
     }

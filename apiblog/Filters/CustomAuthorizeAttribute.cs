@@ -63,25 +63,20 @@ namespace apiblog.Filters
 
             var SecurityToken = Jwt.ReadToken(Token);
             
-            var RoleToken = SecurityToken.Claims.FirstOrDefault(c => c.Type == "role").Value;
+            var RoleToken = SecurityToken.Claims.FirstOrDefault(c => c.Type == "role").Value;       
 
-            int RoleLevel = 0;
             var AllRoles = new List<int>(); ;
-            foreach (RolesUser role in Enum.GetValues(typeof(RolesUser)))
-            {           
-                if (RoleToken == role.ToString())
-                {
-                    RoleLevel = (int)role;
-                }
-
-                AllRoles.Add((int)role);
-            }
-
-            if (!AllRoles.Contains(RoleLevel))
+            foreach (var rolet in Roles)
             {
-                throw new Exception("Não tem mais permissão");
-            }           
-        }
+                AllRoles.Add((int)Enum.Parse(typeof(RolesUser), rolet.ToString(), true));
+            }
+            
+            var RoleAccess = AllRoles.FirstOrDefault(s => s >= 2);
 
+            if (Convert.ToBoolean(RoleAccess))
+            {
+                throw new Exception("no have permission");
+            }
+        }
     }
 }

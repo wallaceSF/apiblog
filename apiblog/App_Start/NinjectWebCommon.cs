@@ -63,10 +63,12 @@ namespace apiblog.App_Start
         private static void RegisterServices(IKernel kernel)
         {           
             kernel.Bind<IContext>().To<ContextEntityFactory>();
-            //kernel.Bind<IPessoaService<>().To<PessoaFactory<>>();
+            kernel.Bind<IPessoaService>().To<PessoaServiceFactory>();
+            kernel.Bind<ILembreteService>().To<LembreteServiceFactory>();
+            
             kernel.Bind(typeof(IGenericService<>)).To(typeof(GenericServiceFactory<>));
-                //.WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString)
-                //.WithConstructorArgument("timeout", 10000); ;            
+            //.WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString)
+            //.WithConstructorArgument("timeout", 10000); ;            
         }
     }
 }

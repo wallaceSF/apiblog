@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+
 using apiblog.Context;
 using apiblog.Interfaces;
-using apiblog.Services;
 using apiblog.UoW;
 
 namespace apiblog.Factories

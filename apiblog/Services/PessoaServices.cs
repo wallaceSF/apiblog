@@ -4,16 +4,25 @@ using System.Net;
 
 using apiblog.Entities;
 using apiblog.Interfaces;
+using apiblog.Validation;
+using FluentValidation;
 
 namespace apiblog.Services
 {
     public class PessoaServices
     {
         private IUnitOfWork _unitOfWork;
+        private PessoaValidator _pessoaValidator = null;
 
         public PessoaServices(IUnitOfWork UnitOfWork)
         {
             _unitOfWork = UnitOfWork;
+        }
+
+        public PessoaServices(IUnitOfWork UnitOfWork, PessoaValidator pessoaValidator)
+        {
+            _unitOfWork = UnitOfWork;
+            _pessoaValidator = pessoaValidator;
         }
 
         public IEnumerable<Pessoa> GetAll()
@@ -38,6 +47,12 @@ namespace apiblog.Services
 
         public void Create(Pessoa pessoaObjectParams)
         {
+
+            if (_pessoaValidator != null)
+            {
+                _pessoaValidator.ValidateAndThrow(pessoaObjectParams);              
+            }
+
             _unitOfWork.PessoaRepository.Add(pessoaObjectParams);
             _unitOfWork.Save();            
         }
@@ -55,6 +70,11 @@ namespace apiblog.Services
             }
 
             Pessoa.Nome = pessoaObjectParams.Nome;
+
+            if (_pessoaValidator != null)
+            {
+                _pessoaValidator.ValidateAndThrow(Pessoa);
+            }
 
             _unitOfWork.PessoaRepository.Update(Pessoa);
             _unitOfWork.Save();            

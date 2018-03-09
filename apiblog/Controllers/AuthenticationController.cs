@@ -40,7 +40,7 @@ namespace apiblog.Controllers
             {
                 new Claim(ClaimTypes.Name, Usuario.Pessoa.Nome),
                 new Claim(ClaimTypes.NameIdentifier, (Usuario.Pessoa.Emails.Count != 0 ? Usuario.Pessoa.Emails[0].Endereco : "emaildefault@teste.com")),
-                new Claim(ClaimTypes.Role, "Administrator"),
+                new Claim(ClaimTypes.Role, "Administrador"),
             };
 
             var SecurityTokenJWT = new SecurityTokenJWT

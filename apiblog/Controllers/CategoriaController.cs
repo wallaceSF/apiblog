@@ -20,6 +20,7 @@ namespace apiblog.Controllers
             _context = context;
         }
 
+        [CustomAuthorize(RolesUser.Administrador, RolesUser.Editor)]
         public IEnumerable<Categoria> Get()
         {           
             CategoriaServices categoriaServices = new CategoriaServices(_context.GetContext());

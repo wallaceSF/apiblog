@@ -36,7 +36,6 @@ namespace apiblog.Services
 
             _context.Categorias.Add(categoriaObject);
             _context.SaveChanges();
-
         }
 
         public void Update(int id, Categoria categoriaObjectParams)
