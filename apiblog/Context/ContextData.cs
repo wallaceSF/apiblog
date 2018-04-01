@@ -17,7 +17,7 @@ namespace apiblog.Context
         public DbSet<Comentario> Comentario { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
 
-        public DbSet<Usuario> Usuario { get; set; }              
+        public DbSet<Usuario> Usuario { get; set; }       
 
         public ContextData() : base("name=Connection")
         {

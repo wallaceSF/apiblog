@@ -2,7 +2,9 @@
 using System.Web.Http;
 
 using apiblog.Entities;
+using apiblog.Filters;
 using apiblog.Interfaces;
+using apiblog.Models;
 
 namespace apiblog.Controllers
 {
@@ -14,27 +16,35 @@ namespace apiblog.Controllers
         {            
             _pessoaService = pessoaService;            
         }
-              
+
+        [CustomAuthorize(RolesUser.Editor)]
+        [RolesCapabilities]
         public IEnumerable<Pessoa> Get()
         {                    
             return _pessoaService.getPessoaService().GetAll();                 
         }
 
-        public dynamic Get(int id)
+        [CustomAuthorize(RolesUser.Administrador, RolesUser.Editor)]
+        [RolesCapabilities]
+        public Pessoa Get(int id)
         { 
             return _pessoaService.getPessoaService().Get(id);
         }
-         
+
+        [CustomAuthorize(RolesUser.Editor)]
+        [RolesCapabilities]
         public void Post([FromBody]Pessoa pessoa)
         {          
             _pessoaService.getPessoaService().Create(pessoa);
         }
 
+        [RolesCapabilities]
         public void Put(int id, [FromBody]Pessoa pessoa)
         {            
             _pessoaService.getPessoaService().Update(id, pessoa);
         }
-        
+
+        [RolesCapabilities]
         public void Delete(int id)
         {                    
             _pessoaService.getPessoaService().Delete(id);

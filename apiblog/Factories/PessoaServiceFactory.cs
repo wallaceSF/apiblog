@@ -10,7 +10,8 @@ namespace apiblog.Factories
     {
         public PessoaServices getPessoaService()
         {
-            var unitOfWork = new UnitOfWork(new ContextData());
+            var unitOfWork = new UnitOfWork(new ContextData());    
+            
             return new PessoaServices(unitOfWork, new PessoaValidator());
         }
     }

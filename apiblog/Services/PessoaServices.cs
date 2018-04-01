@@ -58,7 +58,7 @@ namespace apiblog.Services
         }
 
         public void Update(int id, Pessoa pessoaObjectParams)
-        {                        
+        {           
             var Pessoa = _unitOfWork.PessoaRepository.Find(p => p.IdPessoa == id);
 
             if (Pessoa == null)

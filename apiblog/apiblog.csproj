@@ -264,6 +264,7 @@
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Factories\LembreteServiceFactory.cs" />
     <Compile Include="Factories\PessoaServiceFactory.cs" />
+    <Compile Include="Filters\RolesCapabilities.cs" />
     <Compile Include="Filters\TrateException.cs" />
     <Compile Include="Filters\CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -273,7 +274,7 @@
     <Compile Include="Interfaces\IPessoaService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IValidation.cs" />
+    <Compile Include="Interfaces\IValidationService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Authenticate.cs" />
     <Compile Include="Models\RolesUser.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="Interfaces\IContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\CheckRoleCapabilities.cs" />
     <Compile Include="Services\JwtServices.cs" />
     <Compile Include="Services\Lembretes\PostingInDraft.cs" />
     <Compile Include="Services\Lembretes\Aniversariante.cs" />
@@ -294,10 +296,12 @@
     <Compile Include="Services\LembreteService.cs" />
     <Compile Include="Repositories\PessoaRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Services\RolesCapabilities.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
     <Compile Include="Services\UsuarioServices.cs" />
     <Compile Include="Services\PostServices.cs" />
     <Compile Include="Services\PessoaServices.cs" />
+    <Compile Include="Services\Validation\ValidationPessoaService.cs" />
     <Compile Include="Validation\PessoaValidator.cs" />
   </ItemGroup>
   <ItemGroup>

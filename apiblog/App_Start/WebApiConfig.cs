@@ -27,7 +27,7 @@ namespace apiblog
                 defaults: new { id = RouteParameter.Optional }
             );            
           
-         //   config.Filters.Add(new CustomAuthorizeAttribute());
+          //  config.Filters.Add(new CustomAuthorizeAttribute());
           //  config.Filters.Add(new TrateException());         
         }
     }

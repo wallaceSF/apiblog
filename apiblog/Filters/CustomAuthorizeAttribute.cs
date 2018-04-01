@@ -46,10 +46,7 @@ namespace apiblog.Filters
         }
 
         private static bool SkipAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
-        {
-            var c = actionContext.ActionDescriptor.GetParameters();
-            var k = c;
-
+        {                  
             return actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any()
                        || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
         }
@@ -57,25 +54,25 @@ namespace apiblog.Filters
         private void AuthorizeRequest(string Token)
         {            
             var Secret = ConfigurationManager.AppSettings.Get("secret");
-
             var Jwt = new JwtServices();
-            Jwt.validateToken(Secret, Token);
 
+            Jwt.validateToken(Secret, Token);
             var SecurityToken = Jwt.ReadToken(Token);
             
-            var RoleToken = SecurityToken.Claims.FirstOrDefault(c => c.Type == "role").Value;       
+            String RoleToken = SecurityToken.Claims.FirstOrDefault(c => c.Type == "role").Value;
+            var RoleValueToken = (int)Enum.Parse(typeof(RolesUser), RoleToken, true);
 
-            var AllRoles = new List<int>(); ;
-            foreach (var rolet in Roles)
+            var AllRoles = new List<int>();
+            foreach (var role in Roles)
             {
-                AllRoles.Add((int)Enum.Parse(typeof(RolesUser), rolet.ToString(), true));
+                AllRoles.Add((int)Enum.Parse(typeof(RolesUser), role.ToString(), true));
             }
             
             var RoleAccess = AllRoles.FirstOrDefault(s => s >= 2);
 
-            if (Convert.ToBoolean(RoleAccess))
+            if (!Convert.ToBoolean(RoleAccess))
             {
-                throw new Exception("no have permission");
+                throw new Exception("you no have permission, your role is low");
             }
         }
     }
